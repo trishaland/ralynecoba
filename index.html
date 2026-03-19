@@ -671,82 +671,143 @@
   }
 }
 
-/* ================= COUNTDOWN ================= */
+/* ================= MESSAGE SECTION ================= */
 
-.countdown-section {
-  position: relative;
-  height: 100vh;
-  background: url('ralynebg.jpg') center/cover no-repeat;
-  background-attachment: fixed; /* 🔥 ini bikin gambar diem */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.message-section {
+  background: #83ca8b;
+  padding: 100px 10%;
   text-align: center;
-  color: white;
 }
 
-/* overlay biar tulisan kebaca */
-.countdown-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
+.message-section h2 {
+  color: #1a365d;
+  margin-bottom: 40px;
 }
 
-/* konten */
-.countdown-content {
-  position: relative;
-  z-index: 2;
+/* WRAPPER */
+.message-wrapper {
+  max-width: 800px;
+  margin: auto;
 }
 
-.countdown-content h2 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-.countdown-content p {
-  margin-bottom: 30px;
-  font-size: 18px;
-}
-
-/* box waktu */
-.countdown-box {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.time {
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(10px);
-  padding: 20px 25px;
+/* CARD FORM */
+.message-card {
+  background: white;
+  padding: 25px;
   border-radius: 20px;
-  min-width: 90px;
-  animation: floatTime 4s ease-in-out infinite;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  margin-bottom: 40px;
+  text-align: left;
 }
 
-.time span {
-  font-size: 32px;
-  font-weight: 700;
-  display: block;
+.message-card h3 {
+  margin-bottom: 15px;
+  color: #2b6cb0;
 }
 
-.time small {
+/* INPUT */
+.message-card input,
+.message-card textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  outline: none;
+  transition: 0.3s;
+}
+
+.message-card textarea {
+  min-height: 100px;
+}
+
+/* FOCUS */
+.message-card input:focus,
+.message-card textarea:focus {
+  border-color: #2b6cb0;
+}
+
+/* BUTTON */
+.message-card button {
+  width: 100%;
+  background: #2b6cb0;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.message-card button:hover {
+  background: #1a4f85;
+  transform: scale(1.03);
+}
+
+/* LIST PESAN */
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* CARD PESAN */
+.message-item {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+.message-item h4 {
+  color: #2b6cb0;
+  margin-bottom: 5px;
+}
+
+.message-item p {
   font-size: 14px;
+  color: #333;
 }
 
-/* animasi lucu naik turun */
-@keyframes floatTime {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+.message-item span {
+  font-size: 11px;
+  color: gray;
 }
 
-/* delay beda biar gak barengan */
-.time:nth-child(2) { animation-delay: 0.5s; }
-.time:nth-child(3) { animation-delay: 1s; }
-.time:nth-child(4) { animation-delay: 1.5s; }
+/* ANIMASI */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* POPUP */
+.success-popup {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #2b6cb0;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 25px;
+  opacity: 0;
+  transition: 0.4s;
+  z-index: 9999;
+}
+
+.success-popup.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
   </style>
 </head>
 
@@ -875,35 +936,31 @@
   <div class="calendar-box" id="calendar"></div>
 </section>
 
-<section class="countdown-section">
+<section class="message-section">
+  <h2>Pesan untuk Ralyne 💌</h2>
 
-  <div class="countdown-overlay"></div>
+  <div class="message-wrapper">
 
-  <div class="countdown-content">
-    <h2>Menuju Birthday Ralyne 🎂</h2>
-    <p>15 Oktober 2026</p>
+    <!-- FORM -->
+    <div class="message-card">
+      <h3>Kirim Pesan</h3>
 
-    <div class="countdown-box">
-      <div class="time">
-        <span id="days">0</span>
-        <small>Hari</small>
-      </div>
-      <div class="time">
-        <span id="hours">0</span>
-        <small>Jam</small>
-      </div>
-      <div class="time">
-        <span id="minutes">0</span>
-        <small>Menit</small>
-      </div>
-      <div class="time">
-        <span id="seconds">0</span>
-        <small>Detik</small>
-      </div>
+      <input type="text" id="name" placeholder="Nama kamu...">
+      <textarea id="message" placeholder="Tulis pesan manis kamu ✨"></textarea>
+
+      <button onclick="sendMessage()">Kirim 💖</button>
     </div>
-  </div>
 
+    <!-- LIST PESAN -->
+    <div class="message-list" id="messageList"></div>
+
+  </div>
 </section>
+
+<!-- POPUP -->
+<div class="success-popup" id="successPopup">
+  💖 Pesan berhasil dikirim!
+</div>
 
   <script>
     function toggleMenu() {
@@ -1070,24 +1127,68 @@ renderCalendar();
 </script>
 
 <script>
-const targetDate = new Date("October 15, 2026 00:00:00").getTime();
+const API_URL = "https://script.google.com/macros/s/AKfycbw55Xvon-YFnqN83yM1aocQKMBL2ajj1bHCjo6Z2WYa9JtLpMSU-1HEgfxwsOQEbwGupg/exec";
 
-function updateCountdown() {
-  const now = new Date().getTime();
-  const gap = targetDate - now;
+function sendMessage() {
+  const name = document.getElementById("name").value;
+  const message = document.getElementById("message").value;
 
-  const days = Math.floor(gap / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((gap / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((gap / (1000 * 60)) % 60);
-  const seconds = Math.floor((gap / 1000) % 60);
+  if (!name || !message) {
+    alert("Isi dulu 😤");
+    return;
+  }
 
-  document.getElementById("days").innerText = days;
-  document.getElementById("hours").innerText = hours;
-  document.getElementById("minutes").innerText = minutes;
-  document.getElementById("seconds").innerText = seconds;
+  fetch(API_URL, {
+    method: "POST",
+    body: new URLSearchParams({
+      nama: name,
+      pesan: message
+    })
+  })
+  .then(() => {
+    document.getElementById("name").value = "";
+    document.getElementById("message").value = "";
+
+    showSuccess();
+    loadMessages();
+  });
 }
 
-setInterval(updateCountdown, 1000);
+// POPUP SUCCESS
+function showSuccess() {
+  const popup = document.getElementById("successPopup");
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 3000);
+}
+
+// LOAD PESAN
+function loadMessages() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById("messageList");
+      list.innerHTML = "";
+
+      data.reverse().forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "message-item";
+
+        div.innerHTML = `
+          <h4>${msg.nama}</h4>
+          <p>${msg.pesan}</p>
+          <span>${msg.waktu}</span>
+        `;
+
+        list.appendChild(div);
+      });
+    });
+}
+
+// AUTO LOAD
+loadMessages();
 </script>
 
 <!-- POPUP -->
