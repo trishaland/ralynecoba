@@ -527,12 +527,21 @@
   overflow: hidden;
 }
 
+.calendar-section h2 {
+  color: #1a365d;
+}
+
 .calendar-header {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+#monthYear {
+  color: #1a365d; /* bebas mau ganti warna apa */
+  font-weight: 700;
 }
 
 .calendar-header button {
@@ -661,6 +670,83 @@
     opacity: 1;
   }
 }
+
+/* ================= COUNTDOWN ================= */
+
+.countdown-section {
+  position: relative;
+  height: 100vh;
+  background: url('ralynebg.jpg') center/cover no-repeat;
+  background-attachment: fixed; /* 🔥 ini bikin gambar diem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+/* overlay biar tulisan kebaca */
+.countdown-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+}
+
+/* konten */
+.countdown-content {
+  position: relative;
+  z-index: 2;
+}
+
+.countdown-content h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.countdown-content p {
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+/* box waktu */
+.countdown-box {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.time {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px 25px;
+  border-radius: 20px;
+  min-width: 90px;
+  animation: floatTime 4s ease-in-out infinite;
+}
+
+.time span {
+  font-size: 32px;
+  font-weight: 700;
+  display: block;
+}
+
+.time small {
+  font-size: 14px;
+}
+
+/* animasi lucu naik turun */
+@keyframes floatTime {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* delay beda biar gak barengan */
+.time:nth-child(2) { animation-delay: 0.5s; }
+.time:nth-child(3) { animation-delay: 1s; }
+.time:nth-child(4) { animation-delay: 1.5s; }
   </style>
 </head>
 
@@ -787,6 +873,36 @@
   <button class="today-btn" onclick="goToday()">Today</button>
 
   <div class="calendar-box" id="calendar"></div>
+</section>
+
+<section class="countdown-section">
+
+  <div class="countdown-overlay"></div>
+
+  <div class="countdown-content">
+    <h2>Menuju Birthday Ralyne 🎂</h2>
+    <p>15 Oktober 2026</p>
+
+    <div class="countdown-box">
+      <div class="time">
+        <span id="days">0</span>
+        <small>Hari</small>
+      </div>
+      <div class="time">
+        <span id="hours">0</span>
+        <small>Jam</small>
+      </div>
+      <div class="time">
+        <span id="minutes">0</span>
+        <small>Menit</small>
+      </div>
+      <div class="time">
+        <span id="seconds">0</span>
+        <small>Detik</small>
+      </div>
+    </div>
+  </div>
+
 </section>
 
   <script>
@@ -951,6 +1067,27 @@ function closePopup() {
 
 // load pertama
 renderCalendar();
+</script>
+
+<script>
+const targetDate = new Date("October 15, 2026 00:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const gap = targetDate - now;
+
+  const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((gap / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((gap / (1000 * 60)) % 60);
+  const seconds = Math.floor((gap / 1000) % 60);
+
+  document.getElementById("days").innerText = days;
+  document.getElementById("hours").innerText = hours;
+  document.getElementById("minutes").innerText = minutes;
+  document.getElementById("seconds").innerText = seconds;
+}
+
+setInterval(updateCountdown, 1000);
 </script>
 
 <!-- POPUP -->
